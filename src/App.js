@@ -1,12 +1,11 @@
-
-import './App.css';
+import GameGrid from './components/GameGrid/GameGrid';
+import GridContextProvider from './components/GameGrid/GridContextProvider';
 
 function App() {
-  
   return (
-    <div>
-      hello arcade lite!
-    </div>
+    <GridContextProvider>
+      <GameGrid />
+    </GridContextProvider>
   );
 }
 
