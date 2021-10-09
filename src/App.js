@@ -1,11 +1,12 @@
-import GameGrid from './components/GameGrid/GameGrid';
+
 import GridContextProvider from './components/GameGrid/GridContextProvider';
 import Controls from './components/Controls';
+import GameScreen from './components/GameScreen/GameScreen';
 
 function App() {
   return (
     <GridContextProvider>
-      <GameGrid />
+      <GameScreen />
       <Controls />
     </GridContextProvider>
   );
