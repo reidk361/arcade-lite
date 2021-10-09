@@ -1,12 +1,13 @@
-import React from 'react';
-import Controls from "./components/Controls"
-
+import GameGrid from './components/GameGrid/GameGrid';
+import GridContextProvider from './components/GameGrid/GridContextProvider';
+import Controls from './components/Controls';
 
 function App() {
   return (
-    <div className="App">
-      < Controls/>
-    </div>
+    <GridContextProvider>
+      <GameGrid />
+      <Controls />
+    </GridContextProvider>
   );
 }
 
