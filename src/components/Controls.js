@@ -1,4 +1,6 @@
-import React from "react";
+
+import { GridContext } from "./GameGrid/GridContextProvider";
+import { useContext } from "react";
 
 export default function Controls(props) {
   function onKeyDown(e) {
@@ -18,6 +20,7 @@ export default function Controls(props) {
         break;
     }
   }
+  const { setPiece } = useContext(GridContext);
   return (
     <div className="controls">
       {/* left */}
@@ -36,6 +39,17 @@ export default function Controls(props) {
       <button className="control-button" onClick={onKeyDown} onKeyDown={onKeyDown}>
         down
       </button>
+      <h2
+        onClick={() =>
+          setTimeout(() => {
+            setPiece('square');
+          }, 1000)
+        }
+        style={{ margin: '40px' }}
+      >
+        {' '}
+        START{' '}
+      </h2>
     </div>
   );
 }

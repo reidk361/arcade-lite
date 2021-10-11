@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { GridContext } from './GridContextProvider';
 
 const GameGrid = () => {
-  const { gridState, setPiece } = useContext(GridContext);
+  const { gridState } = useContext(GridContext);
 
   return (
     <>
@@ -26,17 +26,7 @@ const GameGrid = () => {
           </li>
         ))}
       </ul>
-      <h2
-        onClick={() =>
-          setTimeout(() => {
-            setPiece('square');
-          }, 1000)
-        }
-        style={{ margin: '40px' }}
-      >
-        {' '}
-        START{' '}
-      </h2>
+      
     </>
   );
 };
