@@ -2,6 +2,18 @@ import { GridContext } from './GameGrid/GridContextProvider';
 import { useContext } from 'react';
 
 export default function Controls(props) {
+  const startGame = () => {
+    if(pieceXY.x > 19 || pieceXY.y > 19){
+      return;
+    }
+
+    setTimeout(() => {
+      setPiece('square');
+      setPieceXY({x: ++pieceXY.x, y: pieceXY.y});
+      startGame();
+    } ,1000)
+  }
+
   function onKeyDown(e) {
     // eslint-disable-next-line default-case
     switch (e.keyCode) {
@@ -19,7 +31,7 @@ export default function Controls(props) {
         break;
     }
   }
-  const { setPiece } = useContext(GridContext);
+  const { setPiece, pieceXY, setPieceXY } = useContext(GridContext);
   return (
     <div className="controls">
       {/* left */}
@@ -55,17 +67,8 @@ export default function Controls(props) {
         down
       </button>
       <h2
-        onClick={() =>
-          setTimeout(() => {
-            const piece = setPiece('square');
-            // while(piece[0][1] < 19){
-            //   setTimeout(() => {
-
-            //   } ,1000)
-            // }
-          }, 1000)
-        }
-        style={{ margin: '40px' }}
+        onClick={startGame}
+        style={{ margin: '10px' }}
       >
         {' '}
         START{' '}
@@ -73,3 +76,5 @@ export default function Controls(props) {
     </div>
   );
 }
+
+
