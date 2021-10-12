@@ -1,22 +1,21 @@
-
-import { GridContext } from "./GameGrid/GridContextProvider";
-import { useContext } from "react";
+import { GridContext } from './GameGrid/GridContextProvider';
+import { useContext } from 'react';
 
 export default function Controls(props) {
   function onKeyDown(e) {
     // eslint-disable-next-line default-case
     switch (e.keyCode) {
       case 37:
-        alert("left");
+        alert('left');
         break;
       case 38:
-        alert("up");
+        alert('up');
         break;
       case 39:
-        alert("right");
+        alert('right');
         break;
       case 40:
-        alert("down");
+        alert('down');
         break;
     }
   }
@@ -24,25 +23,46 @@ export default function Controls(props) {
   return (
     <div className="controls">
       {/* left */}
-      <button className="control-button" onClick={onKeyDown} onKeyDown={onKeyDown}>
+      <button
+        className="control-button"
+        onClick={onKeyDown}
+        onKeyDown={onKeyDown}
+      >
         left
       </button>
       {/* right */}
-      <button className="control-button" onClick={onKeyDown} onKeyDown={onKeyDown}>
+      <button
+        className="control-button"
+        onClick={onKeyDown}
+        onKeyDown={onKeyDown}
+      >
         right
       </button>
       {/* up */}
-      <button className="control-button" onClick={onKeyDown} onKeyDown={onKeyDown}>
+      <button
+        className="control-button"
+        onClick={onKeyDown}
+        onKeyDown={onKeyDown}
+      >
         up
       </button>
       {/* down */}
-      <button className="control-button" onClick={onKeyDown} onKeyDown={onKeyDown}>
+      <button
+        className="control-button"
+        onClick={onKeyDown}
+        onKeyDown={onKeyDown}
+      >
         down
       </button>
       <h2
         onClick={() =>
           setTimeout(() => {
-            setPiece('square');
+            const piece = setPiece('square');
+            // while(piece[0][1] < 19){
+            //   setTimeout(() => {
+
+            //   } ,1000)
+            // }
           }, 1000)
         }
         style={{ margin: '40px' }}

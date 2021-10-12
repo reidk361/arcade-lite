@@ -15,6 +15,7 @@ const GridContextProvider = ({ children }) => {
       newGrid[coord[0]][coord[1]] = 1;
     });
     setGridState(newGrid);
+    return piece(pieceName, pieceXY.x, pieceXY.y);
   }
 
 
