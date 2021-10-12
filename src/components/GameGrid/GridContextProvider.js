@@ -9,13 +9,20 @@ const GridContextProvider = ({ children }) => {
   const [gridState, setGridState] = useState(emptyGrid);
   const [pieceXY, setPieceXY] = useState({x: 0, y: 0});
 
-  const setPiece = (pieceName) => {
-    const newGrid = gridState.map(x => x);
-    piece(pieceName, pieceXY.x, pieceXY.y).forEach(coord => {
+  const setPiece = (pieceName, newCoords) => {
+    const newGrid = [...gridState];
+    piece(pieceName, newCoords.x, newCoords.y).forEach(coord => {
       newGrid[coord[0]][coord[1]] = 1;
     });
-    setGridState(newGrid);
-    return piece(pieceName, pieceXY.x, pieceXY.y);
+    setGridState(() => newGrid);
+  }
+
+  const removePiece = (pieceName, oldCoords) => {
+    const newGrid = [...gridState];
+    piece(pieceName, oldCoords.x, oldCoords.y).forEach(coord => {
+      newGrid[coord[0]][coord[1]] = 0;
+    });
+    setGridState(()=> newGrid);
   }
 
 
@@ -26,7 +33,8 @@ const GridContextProvider = ({ children }) => {
         pieceXY: pieceXY,
         setGridState: setGridState,
         setPiece: setPiece,
-        setPieceXY: setPieceXY
+        setPieceXY: setPieceXY,
+        removePiece: removePiece
       }}
     >
       {children}
