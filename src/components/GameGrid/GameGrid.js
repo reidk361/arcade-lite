@@ -1,14 +1,15 @@
 import { useContext } from 'react';
 import { GridContext } from './GridContextProvider';
+
 const GameGrid = () => {
   const { gridState } = useContext(GridContext);
 
   return (
     <>
-      <ul >
+      <ul>
         {gridState.map((index, i) => (
           <li key={i}>
-            {index.map((number) => (
+            {index.map((number, j) => (
               <div
                 style={{
                   display: 'inline-block',
@@ -17,6 +18,7 @@ const GameGrid = () => {
                   paddingBottom: '5px',
                   paddingTop: '5px',
                 }}
+                key={j}
               >
                 {number}
               </div>
@@ -24,6 +26,7 @@ const GameGrid = () => {
           </li>
         ))}
       </ul>
+      
     </>
   );
 };
