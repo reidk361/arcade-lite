@@ -1,42 +1,74 @@
-import { GridContext } from "./GameGrid/GridContextProvider";
-import { useContext } from "react";
+import { GridContext } from './GameGrid/GridContextProvider';
+import { useContext } from 'react';
 
 export default function Controls(props) {
-  function handleControls(e) {
-    console.log(e);
 
+  //TODO move this where apropriate and name
+
+  const movePiece = (diff) => setPieceXY((prevState) => {
+    removePiece('square', prevState);
+    const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y }
+    setPiece('square', newCoords);
+    return newCoords;
+  });  
+
+
+  const { setPiece, pieceXY, setPieceXY, removePiece } =
+    useContext(GridContext);
+
+  const startGame = () => {
+    if (pieceXY.x > 17 || pieceXY.y > 17) {
+      return;
+    }
+
+    setPiece('square', pieceXY);
+    const helper = () => {
+      setTimeout(() => {
+        movePiece({x: +1, y: 0})
+        helper();
+      }, 1000);
+    }
+    helper();
+  };
+
+  function handleControls(e) {
+    //TODO: Combine cases;
     // eslint-disable-next-line default-case
     switch (e.keyCode) {
       case 37:
-        alert("left");
+        movePiece({x: 0, y: +1})
         break;
       case 32:
-        alert("rotate");
+        alert('rotate');
         break;
       case 39:
-        alert("right");
+       
         break;
       case 40:
-        alert("down");
+        alert('down');
         break;
     }
     // eslint-disable-next-line default-case
     switch (e.target.attributes.id.textContent) {
-      case "left-button":
-        alert("left");
+      case 'left-button':
+        removePiece('square');
+        movePiece({x: 0, y: -1})
+
+        setPiece('square');
         break;
-      case "rotate-button":
-        alert("rotate");
+      case 'rotate-button':
+        alert('rotate');
         break;
-      case "right-button":
-        alert("right");
+      case 'right-button':
+        console.log('hoping to go right')
+        movePiece({x: 0, y: +1})
         break;
-      case "down-button":
-        alert("down");
+      case 'down-button':
+        alert('down');
         break;
     }
   }
-  const { setPiece } = useContext(GridContext);
+
   return (
     <div className="controls">
       {/* left */}
@@ -75,21 +107,9 @@ export default function Controls(props) {
       >
         down
       </button>
-      <h2
-        onClick={() =>
-          setTimeout(() => {
-            const piece = setPiece("square");
-            // while(piece[0][1] < 19){
-            //   setTimeout(() => {
-
-            //   } ,1000)
-            // }
-          }, 1000)
-        }
-        style={{ margin: "40px" }}
-      >
-        {" "}
-        START{" "}
+      <h2 onClick={startGame} style={{ margin: '10px' }}>
+        {' '}
+        START{' '}
       </h2>
     </div>
   );
