@@ -1,21 +1,38 @@
-import { GridContext } from './GameGrid/GridContextProvider';
-import { useContext } from 'react';
+import { GridContext } from "./GameGrid/GridContextProvider";
+import { useContext } from "react";
 
 export default function Controls(props) {
-  function onKeyDown(e) {
+  function handleControls(e) {
+    console.log(e);
+
     // eslint-disable-next-line default-case
     switch (e.keyCode) {
       case 37:
-        alert('left');
+        alert("left");
         break;
-      case 38:
-        alert('up');
+      case 32:
+        alert("rotate");
         break;
       case 39:
-        alert('right');
+        alert("right");
         break;
       case 40:
-        alert('down');
+        alert("down");
+        break;
+    }
+    // eslint-disable-next-line default-case
+    switch (e.target.attributes.id.textContent) {
+      case "left-button":
+        alert("left");
+        break;
+      case "rotate-button":
+        alert("rotate");
+        break;
+      case "right-button":
+        alert("right");
+        break;
+      case "down-button":
+        alert("down");
         break;
     }
   }
@@ -24,40 +41,44 @@ export default function Controls(props) {
     <div className="controls">
       {/* left */}
       <button
+        id="left-button"
         className="control-button"
-        onClick={onKeyDown}
-        onKeyDown={onKeyDown}
+        onClick={handleControls}
+        onKeyDown={handleControls}
       >
         left
       </button>
       {/* right */}
       <button
+        id="right-button"
         className="control-button"
-        onClick={onKeyDown}
-        onKeyDown={onKeyDown}
+        onClick={handleControls}
+        onKeyDown={handleControls}
       >
         right
       </button>
-      {/* up */}
+      {/* rotate */}
       <button
+        id="rotate-button"
         className="control-button"
-        onClick={onKeyDown}
-        onKeyDown={onKeyDown}
+        onClick={handleControls}
+        onKeyDown={handleControls}
       >
-        up
+        rotate
       </button>
       {/* down */}
       <button
+        id="down-button"
         className="control-button"
-        onClick={onKeyDown}
-        onKeyDown={onKeyDown}
+        onClick={handleControls}
+        onKeyDown={handleControls}
       >
         down
       </button>
       <h2
         onClick={() =>
           setTimeout(() => {
-            const piece = setPiece('square');
+            const piece = setPiece("square");
             // while(piece[0][1] < 19){
             //   setTimeout(() => {
 
@@ -65,10 +86,10 @@ export default function Controls(props) {
             // }
           }, 1000)
         }
-        style={{ margin: '40px' }}
+        style={{ margin: "40px" }}
       >
-        {' '}
-        START{' '}
+        {" "}
+        START{" "}
       </h2>
     </div>
   );
