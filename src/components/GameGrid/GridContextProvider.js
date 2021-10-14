@@ -50,7 +50,7 @@ const GridContextProvider = ({ children }) => {
     return setPieceXY((prevState) => {
         const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
      
-        if (newCoords.x > 18) {
+        if (newCoords.x > (GRID_HEIGHT - 2)) {
           startPieceMove(true, setPieceXY, setPiece, stopPiece, pieceXY);
           return prevState;
         }
