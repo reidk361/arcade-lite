@@ -25,6 +25,11 @@ const GridContextProvider = ({ children }) => {
     setGridState(()=> newGrid);
   }
 
+  const stopPiece = () => {
+    const newGrid = [...gridState];
+    setGridState(() => newGrid);
+  }
+
 
   return (
     <GridContext.Provider
@@ -34,7 +39,8 @@ const GridContextProvider = ({ children }) => {
         setGridState: setGridState,
         setPiece: setPiece,
         setPieceXY: setPieceXY,
-        removePiece: removePiece
+        removePiece: removePiece,
+        stopPiece: stopPiece
       }}
     >
       {children}

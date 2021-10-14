@@ -6,33 +6,43 @@ export default function Controls(props) {
 
   const movePiece = (diff) =>
     setPieceXY((prevState) => {
+      if( prevState.y + diff.y > 10 || prevState.y + diff.y < 0){
+        return prevState;
+      }
+      if( prevState.x + diff.x > 18){
+        startGame(prevState.x + diff.x);
+        return prevState;
+      }
       removePiece("square", prevState);
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
       setPiece("square", newCoords);
       return newCoords;
     });
 
-  const { setPiece, pieceXY, setPieceXY, removePiece } =
+  const { setPiece, pieceXY, setPieceXY, removePiece, stopPiece } =
     useContext(GridContext);
 
-  const startGame = () => {
-    if (pieceXY.x > 17 || pieceXY.y > 17) {
-      return;
-    }
-
+  const startGame = (position) => {
+    setPieceXY({x: 0, y: 0})
     setPiece("square", pieceXY);
-    const helper = () => {
+    const helper = (position) => {
+      // console.log('piece is: ', );
+      if( position > 17){
+        console.log('made it here!');
+        stopPiece();
+        return;
+      }
       setTimeout(() => {
         movePiece({ x: +1, y: 0 });
         helper();
-      }, 1000);
+      }, 500);
     };
-    helper();
+    helper(position);
   };
 
   function handleControls(e) {
     if (e.target.attributes.id.textContent === "START" || e.keyCode === 76) {
-      startGame()
+      startGame();
     } else if (e.target.attributes.id.textContent === "left-button" || e.keyCode === 37) {
       movePiece({ x: 0, y: -1 });
     } else if (e.target.attributes.id.textContent === "right-button" || e.keyCode === 39) {
