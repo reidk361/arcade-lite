@@ -50,11 +50,6 @@ const GridContextProvider = ({ children }) => {
     return setPieceXY((prevState) => {
         const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
      
-        if (newCoords.y > 10 || newCoords.y < 0) {
-          removePiece('square', prevState);
-          return prevState;
-        }
-     
         if (newCoords.x > 18) {
           startPieceMove(true, setPieceXY, setPiece, stopPiece, pieceXY);
           return prevState;
@@ -74,6 +69,10 @@ const GridContextProvider = ({ children }) => {
         removePiece('square', prevState);
      
         if (checkPieceMove()) {
+          if (newCoords.y > 10 || newCoords.y < 0) {
+            removePiece('square', prevState);
+            return prevState;
+          }
           setPiece('square', newCoords);
           return newCoords;
         } else {
