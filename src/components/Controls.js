@@ -1,34 +1,57 @@
-import { GridContext } from "./GameGrid/GridContextProvider";
-import { useContext } from "react";
+import { GridContext } from './GameGrid/GridContextProvider';
+import { useContext } from 'react';
+import piece from './helpers/piece';
 
 export default function Controls(props) {
   //TODO move this where apropriate and name
 
   const movePiece = (diff) =>
     setPieceXY((prevState) => {
-      if( prevState.y + diff.y > 10 || prevState.y + diff.y < 0){
-        return prevState;
-      }
-      if( prevState.x + diff.x > 18){
-        startGame(prevState.x + diff.x);
-        return prevState;
-      }
-      removePiece("square", prevState);
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
-      setPiece("square", newCoords);
-      return newCoords;
+
+      if (newCoords.y > 10 || newCoords.y < 0) {
+        removePiece('square', prevState);
+        return prevState;
+      }
+
+      if (newCoords.x > 18) {
+        startGame(true);
+        return prevState;
+      }
+
+      const checkPieceMove = () => {
+        const checkCoords = piece('square', newCoords.x, newCoords.y);
+        let flag = true;
+        checkCoords.forEach((pair) => {
+          if (gridState[pair[0]][pair[1]] !== 0) {
+            flag = false;
+          }
+        });
+        return flag;
+      };
+
+      removePiece('square', prevState);
+
+      if (checkPieceMove()) {
+        setPiece('square', newCoords);
+        return newCoords;
+      } else {
+        setPiece('square', prevState);
+        if (prevState.x < newCoords.x) {
+          startGame(true);
+        }
+        return prevState;
+      }
     });
 
-  const { setPiece, pieceXY, setPieceXY, removePiece, stopPiece } =
+  const { setPiece, pieceXY, setPieceXY, removePiece, stopPiece, gridState } =
     useContext(GridContext);
 
-  const startGame = (position) => {
-    setPieceXY({x: 0, y: 0})
-    setPiece("square", pieceXY);
-    const helper = (position) => {
-      // console.log('piece is: ', );
-      if( position > 17){
-        console.log('made it here!');
+  const startGame = (continuing) => {
+    setPieceXY({ x: 0, y: 0 });
+    setPiece('square', pieceXY);
+    const helper = (continuing) => {
+      if (continuing) {
         stopPiece();
         return;
       }
@@ -37,20 +60,32 @@ export default function Controls(props) {
         helper();
       }, 500);
     };
-    helper(position);
+    helper(continuing);
   };
 
   function handleControls(e) {
-    if (e.target.attributes.id.textContent === "START" || e.keyCode === 76) {
+    if (e.target.attributes.id.textContent === 'START' || e.keyCode === 76) {
       startGame();
-    } else if (e.target.attributes.id.textContent === "left-button" || e.keyCode === 37) {
+    } else if (
+      e.target.attributes.id.textContent === 'left-button' ||
+      e.keyCode === 37
+    ) {
       movePiece({ x: 0, y: -1 });
-    } else if (e.target.attributes.id.textContent === "right-button" || e.keyCode === 39) {
+    } else if (
+      e.target.attributes.id.textContent === 'right-button' ||
+      e.keyCode === 39
+    ) {
       movePiece({ x: 0, y: +1 });
-    } else if (e.target.attributes.id.textContent === "rotate-button" || e.keyCode === 32) {
-      alert("rotate");
-    } else if (e.target.attributes.id.textContent === "down-button" || e.keyCode === 40) {
-      alert("down");
+    } else if (
+      e.target.attributes.id.textContent === 'rotate-button' ||
+      e.keyCode === 32
+    ) {
+      alert('rotate');
+    } else if (
+      e.target.attributes.id.textContent === 'down-button' ||
+      e.keyCode === 40
+    ) {
+      alert('down');
     }
   }
 
@@ -92,7 +127,12 @@ export default function Controls(props) {
       >
         down
       </button>
-      <button onClick={handleControls} onKeyDown={handleControls} id="START" style={{ margin: "10px" }}>
+      <button
+        onClick={handleControls}
+        onKeyDown={handleControls}
+        id="START"
+        style={{ margin: '10px' }}
+      >
         START
       </button>
     </div>
