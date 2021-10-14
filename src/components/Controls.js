@@ -37,6 +37,9 @@ export default function Controls(props) {
         return newCoords;
       } else {
         setPiece('square', prevState);
+        if (prevState.x < newCoords.x) {
+          startGame(true);
+        }
         return prevState;
       }
     });
