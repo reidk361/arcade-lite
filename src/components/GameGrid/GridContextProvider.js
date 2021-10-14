@@ -30,6 +30,63 @@ const GridContextProvider = ({ children }) => {
     setGridState(() => newGrid);
   }
 
+  const startPieceMove = (ifContinue) => {
+    setPieceXY({ x: 0, y: 0 });
+    setPiece('square', pieceXY);
+    const helper = (ifContinue) => {
+      if (ifContinue) {
+        stopPiece();
+        return;
+      }
+      setTimeout(() => {
+        movePiece({ x: +1, y: 0 });
+        helper();
+      }, 500);
+    };
+    helper(ifContinue);
+  };
+
+  const movePiece = (diff) =>{
+    return setPieceXY((prevState) => {
+        const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
+     
+        if (newCoords.y > 10 || newCoords.y < 0) {
+          removePiece('square', prevState);
+          return prevState;
+        }
+     
+        if (newCoords.x > 18) {
+          startPieceMove(true, setPieceXY, setPiece, stopPiece, pieceXY);
+          return prevState;
+        }
+     
+        const checkPieceMove = () => {
+          const checkCoords = piece('square', newCoords.x, newCoords.y);
+          let flag = true;
+          checkCoords.forEach((pair) => {
+            if (gridState[pair[0]][pair[1]] !== 0) {
+              flag = false;
+            }
+          });
+          return flag;
+        };
+     
+        removePiece('square', prevState);
+     
+        if (checkPieceMove()) {
+          setPiece('square', newCoords);
+          return newCoords;
+        } else {
+          setPiece('square', prevState);
+          if (prevState.x < newCoords.x) {
+            startPieceMove(true);
+          }
+          return prevState;
+        }
+      });
+      
+}
+
 
   return (
     <GridContext.Provider
@@ -40,7 +97,9 @@ const GridContextProvider = ({ children }) => {
         setPiece: setPiece,
         setPieceXY: setPieceXY,
         removePiece: removePiece,
-        stopPiece: stopPiece
+        stopPiece: stopPiece,
+        startPieceMove: startPieceMove,
+        movePiece: movePiece
       }}
     >
       {children}
