@@ -4,6 +4,8 @@ import piece from './helpers/piece';
 
 export default function Controls(props) {
   //TODO move this where apropriate and name
+  const { setPiece, pieceXY, setPieceXY, removePiece, stopPiece, gridState } =
+    useContext(GridContext);
 
   const movePiece = (diff) =>
     setPieceXY((prevState) => {
@@ -15,7 +17,7 @@ export default function Controls(props) {
       }
 
       if (newCoords.x > 18) {
-        startGame(true);
+        startPieceMove(true);
         return prevState;
       }
 
@@ -38,20 +40,17 @@ export default function Controls(props) {
       } else {
         setPiece('square', prevState);
         if (prevState.x < newCoords.x) {
-          startGame(true);
+          startPieceMove(true);
         }
         return prevState;
       }
     });
 
-  const { setPiece, pieceXY, setPieceXY, removePiece, stopPiece, gridState } =
-    useContext(GridContext);
-
-  const startGame = (continuing) => {
+  const startPieceMove = (ifContinue) => {
     setPieceXY({ x: 0, y: 0 });
     setPiece('square', pieceXY);
-    const helper = (continuing) => {
-      if (continuing) {
+    const helper = (ifContinue) => {
+      if (ifContinue) {
         stopPiece();
         return;
       }
@@ -60,12 +59,12 @@ export default function Controls(props) {
         helper();
       }, 500);
     };
-    helper(continuing);
+    helper(ifContinue);
   };
 
   function handleControls(e) {
     if (e.target.attributes.id.textContent === 'START' || e.keyCode === 76) {
-      startGame();
+      startPieceMove();
     } else if (
       e.target.attributes.id.textContent === 'left-button' ||
       e.keyCode === 37
