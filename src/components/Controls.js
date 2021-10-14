@@ -31,15 +31,15 @@ export default function Controls(props) {
   };
 
   function handleControls(e) {
-    const clickButtons = e.target.attributes.id.textContent;
-    const clickKey = e.keyCode;
-    if (clickButtons === "left-button" || clickKey === 37) {
+    if (e.target.attributes.id.textContent === "START" || e.keyCode === 76) {
+      startGame()
+    } else if (e.target.attributes.id.textContent === "left-button" || e.keyCode === 37) {
       movePiece({ x: 0, y: -1 });
-    } else if (clickButtons === "right-button" || clickKey === 39) {
+    } else if (e.target.attributes.id.textContent === "right-button" || e.keyCode === 39) {
       movePiece({ x: 0, y: +1 });
-    } else if (clickButtons === "rotate-button" || clickKey === 32) {
+    } else if (e.target.attributes.id.textContent === "rotate-button" || e.keyCode === 32) {
       alert("rotate");
-    } else if (clickButtons === "down-button" || clickKey === 40) {
+    } else if (e.target.attributes.id.textContent === "down-button" || e.keyCode === 40) {
       alert("down");
     }
   }
@@ -82,10 +82,9 @@ export default function Controls(props) {
       >
         down
       </button>
-      <h2 onClick={startGame} style={{ margin: "10px" }}>
-        {" "}
-        START{" "}
-      </h2>
+      <button onClick={handleControls} onKeyDown={handleControls} id="START" style={{ margin: "10px" }}>
+        START
+      </button>
     </div>
   );
 }
