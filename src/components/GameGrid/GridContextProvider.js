@@ -8,6 +8,7 @@ const GridContextProvider = ({ children }) => {
   const emptyGrid = Array.from(Array(GRID_WIDTH), () => new Array(GRID_HEIGHT).fill(0));
   const [gridState, setGridState] = useState(emptyGrid);
   const [pieceXY, setPieceXY] = useState({x: 0, y: 0});
+  const [SCORE, setSCORE] = useState(0);
 
   const setPiece = (pieceName, newCoords) => {
     const newGrid = [...gridState];
@@ -32,12 +33,12 @@ const GridContextProvider = ({ children }) => {
 
   const startPieceMove = async (ifContinue) => {
     const randNum = Math.floor(Math.random() * 11);
-    console.log(randNum);
     setPieceXY({ x: randNum, y: 0 });
     setPiece('square',{ x: randNum, y: 0 });    
     const helper = (ifContinue) => {
       if (ifContinue) {
         stopPiece();
+        ifTetris();
         return;
       }
       setTimeout(() => {
@@ -46,6 +47,30 @@ const GridContextProvider = ({ children }) => {
       }, 500);
     };
     helper(ifContinue);
+  };
+
+  const ifTetris = () => {
+    const newGrid = [...gridState];
+    let count = 0;
+    
+    for(let i = 0; i < GRID_HEIGHT; i++){
+      for(let j = 0; j < GRID_WIDTH; j++){
+        if(newGrid[j][i] !== 0){
+          count++;
+        }
+      }
+      if(count === GRID_WIDTH){
+        for(let k = 0; k < GRID_WIDTH; k++){
+          newGrid[k][i] = 0;
+          count = 0;
+        }
+      } else {
+        count = 0;
+      }
+    }
+    setGridState(newGrid);
+    setSCORE(SCORE + 100)
+    console.log('score is: ', SCORE);
   };
 
   const movePiece = (diff) =>{
@@ -88,7 +113,7 @@ const GridContextProvider = ({ children }) => {
           return prevState;
         }
       });
-      
+
 }
 
 
@@ -97,13 +122,16 @@ const GridContextProvider = ({ children }) => {
       value={{
         gridState: gridState,
         pieceXY: pieceXY,
+        SCORE: SCORE,
         setGridState: setGridState,
         setPiece: setPiece,
         setPieceXY: setPieceXY,
+        setSCORE: setSCORE,
         removePiece: removePiece,
         stopPiece: stopPiece,
         startPieceMove: startPieceMove,
-        movePiece: movePiece
+        movePiece: movePiece,
+        ifTetris: ifTetris,
       }}
     >
       {children}
