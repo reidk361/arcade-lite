@@ -5,7 +5,7 @@ export const GridContext = createContext();
 const GridContextProvider = ({ children }) => {
   const GRID_HEIGHT = 20;
   const GRID_WIDTH = 12;
-  const emptyGrid = Array.from(Array(GRID_HEIGHT), () => new Array(GRID_WIDTH).fill(0));
+  const emptyGrid = Array.from(Array(GRID_WIDTH), () => new Array(GRID_HEIGHT).fill(0));
   const [gridState, setGridState] = useState(emptyGrid);
   const [pieceXY, setPieceXY] = useState({x: 0, y: 0});
 
