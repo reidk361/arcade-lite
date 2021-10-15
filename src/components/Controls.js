@@ -29,7 +29,7 @@ export default function Controls(props) {
       e.target.attributes.id.textContent === 'down-button' ||
       e.keyCode === 40
     ) {
-      alert('down');
+      movePiece({ x: +1, y: 0 });
     }
   }
 
