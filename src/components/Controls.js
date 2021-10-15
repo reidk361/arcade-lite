@@ -50,7 +50,7 @@ export default function Controls(props) {
     } else if (e.target.attributes.id.textContent === "rotate-button" || e.keyCode === 32) {
       alert("rotate");
     } else if (e.target.attributes.id.textContent === "down-button" || e.keyCode === 40) {
-      alert("down");
+      movePiece({ x: +1, y: 0 });
     }
   }
 
