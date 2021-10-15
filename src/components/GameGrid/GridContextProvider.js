@@ -5,7 +5,7 @@ export const GridContext = createContext();
 const GridContextProvider = ({ children }) => {
   const GRID_HEIGHT = 20;
   const GRID_WIDTH = 12;
-  const emptyGrid = Array.from(Array(GRID_HEIGHT), () => new Array(GRID_WIDTH).fill(0));
+  const emptyGrid = Array.from(Array(GRID_WIDTH), () => new Array(GRID_HEIGHT).fill(0));
   const [gridState, setGridState] = useState(emptyGrid);
   const [pieceXY, setPieceXY] = useState({x: 0, y: 0});
 
@@ -33,15 +33,15 @@ const GridContextProvider = ({ children }) => {
   const startPieceMove = async (ifContinue) => {
     const randNum = Math.floor(Math.random() * 11);
     console.log(randNum);
-    setPieceXY({ x: 0, y: randNum });
-    setPiece('square',{ x: 0, y: randNum });    
+    setPieceXY({ x: randNum, y: 0 });
+    setPiece('square',{ x: randNum, y: 0 });    
     const helper = (ifContinue) => {
       if (ifContinue) {
         stopPiece();
         return;
       }
       setTimeout(() => {
-        movePiece({ x: +1, y: 0 });
+        movePiece({ x: 0, y: +1 });
         helper();
       }, 500);
     };
@@ -52,12 +52,15 @@ const GridContextProvider = ({ children }) => {
     return setPieceXY((prevState) => {
         const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
      
-        if (newCoords.x > (GRID_HEIGHT - 2)) {
-          startPieceMove(true, setPieceXY, setPiece, stopPiece, pieceXY);
+        if (newCoords.y > (GRID_HEIGHT - 2)) {
+          startPieceMove(true);
           return prevState;
         }
      
         const checkPieceMove = () => {
+          if(newCoords.x < 0 || newCoords.x > (GRID_WIDTH - 2)){
+            return false;
+          }
           const checkCoords = piece('square', newCoords.x, newCoords.y);
           let flag = true;
           checkCoords.forEach((pair) => {
@@ -71,7 +74,7 @@ const GridContextProvider = ({ children }) => {
         removePiece('square', prevState);
      
         if (checkPieceMove()) {
-          if (newCoords.y > 10 || newCoords.y < 0) {
+          if (newCoords.x > (GRID_WIDTH - 2) || newCoords.x < 0) {
             removePiece('square', prevState);
             return prevState;
           }
@@ -79,7 +82,7 @@ const GridContextProvider = ({ children }) => {
           return newCoords;
         } else {
           setPiece('square', prevState);
-          if (prevState.x < newCoords.x) {
+          if (prevState.y < newCoords.y) {
             startPieceMove(true);
           }
           return prevState;
