@@ -7,26 +7,30 @@ const GameGrid = () => {
   return (
     <>
       <ul>
-        {gridState.map((index, i) => (
-          <li key={i}>
-            {index.map((number, j) => (
+        {gridState.map((index, j) => (
+          <div
+            style={{
+              display: 'inline-block',
+              
+            }}
+            key={j}
+          >
+            {index.map((number, i) => (
               <div
+                key={i}
                 style={{
-                  display: 'inline-block',
                   border: '1px solid black',
                   padding: '10px',
                   paddingBottom: '5px',
                   paddingTop: '5px',
                 }}
-                key={j}
               >
                 {number}
               </div>
             ))}
-          </li>
+          </div>
         ))}
       </ul>
-      
     </>
   );
 };
