@@ -30,9 +30,11 @@ const GridContextProvider = ({ children }) => {
     setGridState(() => newGrid);
   }
 
-  const startPieceMove = (ifContinue) => {
-    setPieceXY({ x: 0, y: 0 });
-    setPiece('square', pieceXY);
+  const startPieceMove = async (ifContinue) => {
+    const randNum = Math.floor(Math.random() * 11);
+    console.log(randNum);
+    setPieceXY({ x: 0, y: randNum });
+    setPiece('square',{ x: 0, y: randNum });    
     const helper = (ifContinue) => {
       if (ifContinue) {
         stopPiece();
