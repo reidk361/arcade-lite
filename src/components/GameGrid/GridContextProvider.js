@@ -12,19 +12,21 @@ const GridContextProvider = ({ children }) => {
   const [pieceXY, setPieceXY] = useState({ x: 0, y: 0 });
   const [SCORE, setSCORE] = useState(0);
   const [pieceName, setPieceName] = useState('');
+  let movingPieceName = '';
 
-  const setPiece = (pieceName, newCoords) => {
+  const setPiece = (newCoords) => {
     const newGrid = [...gridState];
-    const chosenPiece = piece(pieceName, newCoords.x, newCoords.y);
+    const chosenPiece = piece(movingPieceName, newCoords.x, newCoords.y);
     chosenPiece.coords.forEach((coord) => {
       newGrid[coord[0]][coord[1]] = 1;
     });
     setGridState(() => newGrid);
   };
 
-  const removePiece = (pieceName, oldCoords) => {
+  const removePiece = (oldCoords) => {
     const newGrid = [...gridState];
-    const chosenPiece = piece(pieceName, oldCoords.x, oldCoords.y);
+    const chosenPiece = piece(movingPieceName, oldCoords.x, oldCoords.y);
+    console.log('chsoen piece in 29 is: ', chosenPiece);
     chosenPiece.coords.forEach((coord) => {
       newGrid[coord[0]][coord[1]] = 0;
     });
@@ -36,29 +38,31 @@ const GridContextProvider = ({ children }) => {
     setGridState(() => newGrid);
   };
 
-  const startPieceMove = (ifContinue) => {
+  const startPieceMove = (shouldStop) => {
     const pieces = ['square', 'long', 't-shape', 'l', 'j', 's', 'z'];
-    // const selectedName =
-    //   pieces[Math.floor(Math.random() * (pieces.length - 1))];
-    const selectedName = pieces[0];
-    const chosenPiece = piece(selectedName, 0, 0);
-    setPieceName(chosenPiece.name);
-    console.log('should be moving: ', chosenPiece.name);
+    const selectedName =
+      pieces[Math.floor(Math.random() * (pieces.length - 1))];
+    //const selectedName = pieces[0];
+    movingPieceName = selectedName;
+    console.log('movingPieceName in statPiece is: ', movingPieceName);
+    const chosenPiece = piece(movingPieceName, 0, 0);
+    setPieceName(movingPieceName);
+    console.log('should be moving: ', movingPieceName);
     const spawnLocation = chosenPiece.spawn;
     setPieceXY({ x: spawnLocation, y: 0 });
-    setPiece(chosenPiece.name, { x: spawnLocation, y: 0 });
+    setPiece({ x: spawnLocation, y: 0 });
 
-    const helper = async (ifContinue) => {
-      if (ifContinue) {
+    const helper = async (shouldStop) => {
+      if (shouldStop) {
         stopPiece();
         return;
       }
       setTimeout(() => {
-        movePiece(chosenPiece.name, { x: 0, y: +1 });
-        helper();
+        movePiece({ x: 0, y: +1 });
+        helper(shouldStop);
       }, 500);
     };
-    helper(ifContinue);
+    helper(shouldStop);
   };
 
   const tetrisClear = () => {
@@ -90,20 +94,22 @@ const GridContextProvider = ({ children }) => {
     return rows.length;
   };
 
-  const movePiece = (selectedName, diff) => {
-    console.log('actually moving', selectedName);
+  const movePiece = (diff) => {
+    console.log('diff is: ', diff);
+    console.log('actually moving', movingPieceName);
     return setPieceXY((prevState) => {
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
 
       const checkPieceMove = () => {
         if (
           newCoords.x < 0 ||
-          newCoords.x > GRID_WIDTH - piece(selectedName, newCoords).border.right
+          newCoords.x > GRID_WIDTH - piece(movingPieceName, newCoords).border.right
         ) {
           return false;
         }
-        const checkCoords = piece(selectedName, newCoords.x, newCoords.y);
+        const checkCoords = piece(movingPieceName, newCoords.x, newCoords.y);
         let flag = true;
+        console.log(checkCoords);
         checkCoords.coords.forEach((pair) => {
           if (gridState[pair[0]][pair[1]] !== 0) {
             flag = false;
@@ -112,17 +118,17 @@ const GridContextProvider = ({ children }) => {
         return flag;
       };
 
-      removePiece(selectedName, prevState);
+      removePiece(prevState);
 
       if (checkPieceMove()) {
-        setPiece(selectedName, newCoords);
+        setPiece(newCoords);
         return newCoords;
       } else {
-        setPiece(selectedName, prevState);
+        setPiece(prevState);
         if (
           prevState.y < newCoords.y ||
           newCoords.y >
-            GRID_HEIGHT - piece(selectedName, newCoords).border.bottom
+            GRID_HEIGHT - piece(movingPieceName, newCoords).border.bottom
         ) {
           const rowsCleared = tetrisClear();
           setSCORE((prevState) => prevState + 100 * rowsCleared);

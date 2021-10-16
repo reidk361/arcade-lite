@@ -4,7 +4,7 @@ import { useContext } from 'react';
 
 export default function Controls(props) {
   //TODO move this where apropriate and name
-  const { startPieceMove, movePiece, pieceName } =
+  const { startPieceMove, movePiece } =
     useContext(GridContext);
 
   function handleControls(e) {
@@ -14,12 +14,12 @@ export default function Controls(props) {
       e.target.attributes.id.textContent === 'left-button' ||
       e.keyCode === 37
     ) {
-      movePiece(pieceName, { x: -1, y: 0 });
+      movePiece({ x: -1, y: 0 });
     } else if (
       e.target.attributes.id.textContent === 'right-button' ||
       e.keyCode === 39
     ) {
-      movePiece(pieceName, { x: +1, y: 0 });
+      movePiece({ x: +1, y: 0 });
     } else if (
       e.target.attributes.id.textContent === 'rotate-button' ||
       e.keyCode === 32
@@ -29,7 +29,7 @@ export default function Controls(props) {
       e.target.attributes.id.textContent === 'down-button' ||
       e.keyCode === 40
     ) {
-      movePiece(pieceName, { x: 0, y: +1 });
+      movePiece({ x: 0, y: +1 });
     }
   }
 
