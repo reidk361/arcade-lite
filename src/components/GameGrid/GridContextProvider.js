@@ -35,10 +35,9 @@ const GridContextProvider = ({ children }) => {
     const randNum = Math.floor(Math.random() * 11);
     setPieceXY({ x: randNum, y: 0 });
     setPiece('square',{ x: randNum, y: 0 });
-    const helper = (ifContinue) => {
+    const helper = async (ifContinue) => {
       if (ifContinue) {
-        // stopPiece();
-        ifTetris();
+        stopPiece();
         return;
       }
       setTimeout(() => {
@@ -72,8 +71,8 @@ const GridContextProvider = ({ children }) => {
         newGrid[i].splice(row, 1);
         newGrid[i].unshift(0);
       }
+      setSCORE((score) => (score + 100));
     })
-    setSCORE((score) => (score + 100));
     setGridState(newGrid);
     console.log('score is: ', SCORE);
   };
@@ -83,6 +82,7 @@ const GridContextProvider = ({ children }) => {
         const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
      
         if (newCoords.y > (GRID_HEIGHT - 2)) {
+          ifTetris();
           startPieceMove(true);
           return prevState;
         }
@@ -104,12 +104,12 @@ const GridContextProvider = ({ children }) => {
         removePiece('square', prevState);
      
         if (checkPieceMove()) {
-
           setPiece('square', newCoords);
           return newCoords;
         } else {
           setPiece('square', prevState);
           if (prevState.y < newCoords.y) {
+            ifTetris();
             startPieceMove(true);
           }
           return prevState;
