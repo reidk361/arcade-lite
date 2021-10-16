@@ -36,7 +36,7 @@ const GridContextProvider = ({ children }) => {
   const startPieceMove = (ifContinue) => {
     const randNum = Math.floor(Math.random() * 11);
     setPieceXY({ x: randNum, y: 0 });
-    setPiece('square', { x: randNum, y: 0 });
+    setPiece("square", { x: randNum, y: 0 });
     const helper = async (ifContinue) => {
       if (ifContinue) {
         stopPiece();
@@ -56,8 +56,8 @@ const GridContextProvider = ({ children }) => {
     const rows = [];
 
     for (let i = 0; i < GRID_HEIGHT; i++) {
-      for (let j = 0; j < GRID_WIDTH; j++) {
-        if (newGrid[j][i] !== 0) {
+      for (let square = 0; square < GRID_WIDTH; square++) {
+        if (newGrid[square][i] !== 0) {
           count++;
         }
       }
@@ -87,7 +87,7 @@ const GridContextProvider = ({ children }) => {
         if (newCoords.x < 0 || newCoords.x > GRID_WIDTH - 2) {
           return false;
         }
-        const checkCoords = piece('square', newCoords.x, newCoords.y);
+        const checkCoords = piece("square", newCoords.x, newCoords.y);
         let flag = true;
         checkCoords.forEach((pair) => {
           if (gridState[pair[0]][pair[1]] !== 0) {
@@ -97,13 +97,13 @@ const GridContextProvider = ({ children }) => {
         return flag;
       };
 
-      removePiece('square', prevState);
+      removePiece("square", prevState);
 
       if (checkPieceMove()) {
-        setPiece('square', newCoords);
+        setPiece("square", newCoords);
         return newCoords;
       } else {
-        setPiece('square', prevState);
+        setPiece("square", prevState);
         if (prevState.y < newCoords.y || newCoords.y > GRID_HEIGHT - 2) {
           const rowsCleared = tetrisClear();
           setSCORE((prevState) => prevState + 100 * rowsCleared);
