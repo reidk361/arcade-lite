@@ -1,10 +1,9 @@
 import { GridContext } from './GameGrid/GridContextProvider';
 import { useContext } from 'react';
 
-
 export default function Controls(props) {
   //TODO move this where apropriate and name
-  const { startPieceMove, movePiece } =
+  const { startPieceMove, movePiece, pieceName } =
     useContext(GridContext);
 
   function handleControls(e) {
@@ -14,12 +13,12 @@ export default function Controls(props) {
       e.target.attributes.id.textContent === 'left-button' ||
       e.keyCode === 37
     ) {
-      movePiece({ x: -1, y: 0 });
+      movePiece({ x: -1, y: 0 }, pieceName);
     } else if (
       e.target.attributes.id.textContent === 'right-button' ||
       e.keyCode === 39
     ) {
-      movePiece({ x: +1, y: 0 });
+      movePiece({ x: +1, y: 0 }, pieceName);
     } else if (
       e.target.attributes.id.textContent === 'rotate-button' ||
       e.keyCode === 32
@@ -29,7 +28,7 @@ export default function Controls(props) {
       e.target.attributes.id.textContent === 'down-button' ||
       e.keyCode === 40
     ) {
-      movePiece({ x: 0, y: +1 });
+      movePiece({ x: 0, y: +1 }, pieceName);
     }
   }
 
