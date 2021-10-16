@@ -38,22 +38,23 @@ const GridContextProvider = ({ children }) => {
 
   const startPieceMove = (ifContinue) => {
     const pieces = ['square', 'long', 't-shape', 'l', 'j', 's', 'z'];
-    // const pieceName = pieces[Math.floor(Math.random() * (pieces.length - 1))];
-    const selectedName = pieces[6];
-
-    setPieceName(selectedName);
+    // const selectedName =
+    //   pieces[Math.floor(Math.random() * (pieces.length - 1))];
+    const selectedName = pieces[0];
     const chosenPiece = piece(selectedName, 0, 0);
+    setPieceName(chosenPiece.name);
+    console.log('should be moving: ', chosenPiece.name);
     const spawnLocation = chosenPiece.spawn;
-    console.log('chosenPiece.spawn : ', spawnLocation);
     setPieceXY({ x: spawnLocation, y: 0 });
-    setPiece(selectedName, { x: spawnLocation, y: 0 });
+    setPiece(chosenPiece.name, { x: spawnLocation, y: 0 });
+
     const helper = async (ifContinue) => {
       if (ifContinue) {
         stopPiece();
         return;
       }
       setTimeout(() => {
-        movePiece(selectedName, { x: 0, y: +1 });
+        movePiece(chosenPiece.name, { x: 0, y: +1 });
         helper();
       }, 500);
     };
@@ -66,8 +67,8 @@ const GridContextProvider = ({ children }) => {
     const rows = [];
 
     for (let i = 0; i < GRID_HEIGHT; i++) {
-      for (let square = 0; square < GRID_WIDTH; square++) {
-        if (newGrid[square][i] !== 0) {
+      for (let j = 0; j < GRID_WIDTH; j++) {
+        if (newGrid[j][i] !== 0) {
           count++;
         }
       }
@@ -90,11 +91,15 @@ const GridContextProvider = ({ children }) => {
   };
 
   const movePiece = (selectedName, diff) => {
+    console.log('actually moving', selectedName);
     return setPieceXY((prevState) => {
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
 
       const checkPieceMove = () => {
-        if (newCoords.x < 0 || newCoords.x > GRID_WIDTH - piece(selectedName, newCoords).border.right) {
+        if (
+          newCoords.x < 0 ||
+          newCoords.x > GRID_WIDTH - piece(selectedName, newCoords).border.right
+        ) {
           return false;
         }
         const checkCoords = piece(selectedName, newCoords.x, newCoords.y);
@@ -114,7 +119,11 @@ const GridContextProvider = ({ children }) => {
         return newCoords;
       } else {
         setPiece(selectedName, prevState);
-        if (prevState.y < newCoords.y || newCoords.y > GRID_HEIGHT - piece(selectedName, newCoords).border.bottom) {
+        if (
+          prevState.y < newCoords.y ||
+          newCoords.y >
+            GRID_HEIGHT - piece(selectedName, newCoords).border.bottom
+        ) {
           const rowsCleared = tetrisClear();
           setSCORE((prevState) => prevState + 100 * rowsCleared);
           startPieceMove(true);
