@@ -26,6 +26,7 @@ const GridContextProvider = ({ children }) => {
   const removePiece = (oldCoords) => {
     const newGrid = [...gridState];
     const chosenPiece = piece(movingPieceName, oldCoords.x, oldCoords.y);
+    console.log('movingPieceName remove piece is: ', movingPieceName);
     console.log('chsoen piece in 29 is: ', chosenPiece);
     chosenPiece.coords.forEach((coord) => {
       newGrid[coord[0]][coord[1]] = 0;
@@ -95,8 +96,6 @@ const GridContextProvider = ({ children }) => {
   };
 
   const movePiece = (diff) => {
-    console.log('diff is: ', diff);
-    console.log('actually moving', movingPieceName);
     return setPieceXY((prevState) => {
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
 

@@ -1,7 +1,6 @@
 import { GridContext } from './GameGrid/GridContextProvider';
 import { useContext } from 'react';
 
-
 export default function Controls(props) {
   //TODO move this where apropriate and name
   const { startPieceMove, movePiece } =
