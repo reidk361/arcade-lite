@@ -14,18 +14,18 @@ const GridContextProvider = ({ children }) => {
   const [pieceName, setPieceName] = useState('');
   let movingPieceName = '';
 
-  const setPiece = (newCoords) => {
+  const setPiece = (newCoords, nameOfPiece) => {
     const newGrid = [...gridState];
-    const chosenPiece = piece(movingPieceName, newCoords.x, newCoords.y);
+    const chosenPiece = piece(nameOfPiece ? nameOfPiece : movingPieceName, newCoords.x, newCoords.y);
     chosenPiece.coords.forEach((coord) => {
       newGrid[coord[0]][coord[1]] = 1;
     });
     setGridState(() => newGrid);
   };
 
-  const removePiece = (oldCoords) => {
+  const removePiece = (oldCoords, nameOfPiece) => {
     const newGrid = [...gridState];
-    const chosenPiece = piece(movingPieceName, oldCoords.x, oldCoords.y);
+    const chosenPiece = piece(nameOfPiece ? nameOfPiece : movingPieceName, oldCoords.x, oldCoords.y);
     console.log('movingPieceName remove piece is: ', movingPieceName);
     console.log('chsoen piece in 29 is: ', chosenPiece);
     chosenPiece.coords.forEach((coord) => {
@@ -95,18 +95,18 @@ const GridContextProvider = ({ children }) => {
     return rows.length;
   };
 
-  const movePiece = (diff) => {
+  const movePiece = (diff, nameOfPiece) => {
     return setPieceXY((prevState) => {
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
 
       const checkPieceMove = () => {
         if (
           newCoords.x < 0 ||
-          newCoords.x > GRID_WIDTH - piece(movingPieceName, newCoords).border.right
+          newCoords.x > GRID_WIDTH - piece(nameOfPiece ? nameOfPiece : movingPieceName, newCoords).border.right
         ) {
           return false;
         }
-        const checkCoords = piece(movingPieceName, newCoords.x, newCoords.y);
+        const checkCoords = piece(nameOfPiece ? nameOfPiece : movingPieceName, newCoords.x, newCoords.y);
         let flag = true;
         console.log(checkCoords);
         checkCoords.coords.forEach((pair) => {
@@ -117,17 +117,17 @@ const GridContextProvider = ({ children }) => {
         return flag;
       };
 
-      removePiece(prevState);
+      removePiece(prevState, nameOfPiece ? nameOfPiece : movingPieceName);
 
       if (checkPieceMove()) {
-        setPiece(newCoords);
+        setPiece(newCoords, nameOfPiece ? nameOfPiece : movingPieceName);
         return newCoords;
       } else {
-        setPiece(prevState);
+        setPiece(prevState, nameOfPiece ? nameOfPiece : movingPieceName);
         if (
           prevState.y < newCoords.y ||
           newCoords.y >
-            GRID_HEIGHT - piece(movingPieceName, newCoords).border.bottom
+            GRID_HEIGHT - piece(nameOfPiece ? nameOfPiece : movingPieceName, newCoords).border.bottom
         ) {
           const rowsCleared = tetrisClear();
           setSCORE((prevState) => prevState + 100 * rowsCleared);
