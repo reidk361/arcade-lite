@@ -31,10 +31,10 @@ const GridContextProvider = ({ children }) => {
     setGridState(() => newGrid);
   }
 
-  const startPieceMove = async (ifContinue) => {
+  const startPieceMove = (ifContinue) => {
     const randNum = Math.floor(Math.random() * 11);
     setPieceXY({ x: randNum, y: 0 });
-    setPiece('square',{ x: randNum, y: 0 });    
+    setPiece('square',{ x: randNum, y: 0 });
     const helper = (ifContinue) => {
       if (ifContinue) {
         // stopPiece();
@@ -104,10 +104,7 @@ const GridContextProvider = ({ children }) => {
         removePiece('square', prevState);
      
         if (checkPieceMove()) {
-          if (newCoords.x > (GRID_WIDTH - 2) || newCoords.x < 0) {
-            removePiece('square', prevState);
-            return prevState;
-          }
+
           setPiece('square', newCoords);
           return newCoords;
         } else {
