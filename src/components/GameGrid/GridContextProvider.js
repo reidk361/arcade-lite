@@ -25,7 +25,7 @@ const GridContextProvider = ({ children }) => {
       newCoords.y
     );
     chosenPiece.coords.forEach((coord) => {
-      newGrid[coord[0]][coord[1]] = 1;
+      newGrid[coord[0]][coord[1]] = chosenPiece.number;
     });
     setGridState(() => newGrid);
   };
