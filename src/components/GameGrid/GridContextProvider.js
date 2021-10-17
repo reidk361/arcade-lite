@@ -15,6 +15,7 @@ const GridContextProvider = ({ children }) => {
   const [pieceName, setPieceName] = useState('');
   const [isEnd, setIsEnd] = useState(false);
   let movingPieceName = '';
+  let shouldEnd = false;
 
   //sets a piece at the new coords. if there is a name included (from the controls component) then it uses that name for the piece
   //places 1's at the piece's coords
@@ -67,7 +68,7 @@ const GridContextProvider = ({ children }) => {
     setPiece({ x: spawnLocation, y: 0 });
     //helper is called to repeatedly move the piece down
     const helper = async (shouldStop) => {
-      if (shouldStop) {
+      if (shouldStop || shouldEnd) {
         //copies grid, ends timeout
         stopPiece();
         return;
@@ -180,6 +181,7 @@ const GridContextProvider = ({ children }) => {
   const endGame = () => {
     console.log('made it to endGame')
     setIsEnd(isEnd => !isEnd);
+    shouldEnd = !shouldEnd;
     const newGrid = [...gridState];
     setGridState(newGrid);
   }

@@ -4,9 +4,9 @@ import { GridContext } from "../GameGrid/GridContextProvider";
 const Score = () => {
     const { SCORE } = useContext(GridContext);
     return (
-    <div>
+    <h2>
         SCORE: {SCORE}
-    </div>
+    </h2>
 )}
 
 export default Score;
