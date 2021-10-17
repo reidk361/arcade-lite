@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { GridContext } from './GridContextProvider';
 
 const GameGrid = () => {
-  const { gridState } = useContext(GridContext);
+  const { gridState, isEnd } = useContext(GridContext);
 
   return (
     <>
@@ -17,12 +17,24 @@ const GameGrid = () => {
             {index.map((number, j) => (
               <div
                 key={j}
-                style={{
-                  border: '1px solid black',
-                  padding: '10px',
-                  paddingBottom: '5px',
-                  paddingTop: '5px',
-                }}
+                style={
+                  isEnd
+                    ? {
+                        border: '1px solid black',
+                        padding: '10px',
+                        paddingBottom: '5px',
+                        paddingTop: '5px',
+                        backgroundColor: `#${Math.floor(
+                          Math.random() * 16777215
+                        ).toString(16)}`,
+                      }
+                    : {
+                        border: '1px solid black',
+                        padding: '10px',
+                        paddingBottom: '5px',
+                        paddingTop: '5px',
+                      }
+                }
               >
                 {number}
               </div>
