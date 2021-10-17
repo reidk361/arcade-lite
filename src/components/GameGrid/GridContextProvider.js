@@ -13,7 +13,9 @@ const GridContextProvider = ({ children }) => {
   const [pieceXY, setPieceXY] = useState({ x: 0, y: 0 });
   const [SCORE, setSCORE] = useState(0);
   const [pieceName, setPieceName] = useState('');
+  const [isEnd, setIsEnd] = useState(false);
   let movingPieceName = '';
+  let shouldEnd = false;
 
   //sets a piece at the new coords. if there is a name included (from the controls component) then it uses that name for the piece
   //places 1's at the piece's coords
@@ -38,8 +40,6 @@ const GridContextProvider = ({ children }) => {
       oldCoords.x,
       oldCoords.y
     );
-    console.log('movingPieceName remove piece is: ', movingPieceName);
-    console.log('chsoen piece in 29 is: ', chosenPiece);
     chosenPiece.coords.forEach((coord) => {
       newGrid[coord[0]][coord[1]] = 0;
     });
@@ -68,7 +68,7 @@ const GridContextProvider = ({ children }) => {
     setPiece({ x: spawnLocation, y: 0 });
     //helper is called to repeatedly move the piece down
     const helper = async (shouldStop) => {
-      if (shouldStop) {
+      if (shouldStop || shouldEnd) {
         //copies grid, ends timeout
         stopPiece();
         return;
@@ -164,15 +164,27 @@ const GridContextProvider = ({ children }) => {
               piece(nameOfPiece ? nameOfPiece : movingPieceName, newCoords)
                 .border.bottom
         ) {
-          const rowsCleared = tetrisClear();
-          setSCORE((prevState) => prevState + 100 * rowsCleared);
-          startPieceMove(true);
+          if(newCoords.y === 1){
+            endGame();
+          } else {
+            const rowsCleared = tetrisClear();
+            setSCORE((prevState) => prevState + 100 * rowsCleared);
+            startPieceMove(true);
+          }
         }
         //return the previous state as the pieceXY
         return prevState;
       }
     });
   };
+
+  const endGame = () => {
+    console.log('made it to endGame')
+    setIsEnd(isEnd => !isEnd);
+    shouldEnd = !shouldEnd;
+    const newGrid = [...gridState];
+    setGridState(newGrid);
+  }
 
   return (
     <GridContext.Provider
@@ -181,6 +193,7 @@ const GridContextProvider = ({ children }) => {
         pieceXY: pieceXY,
         SCORE: SCORE,
         pieceName: pieceName,
+        isEnd: isEnd,
         setGridState: setGridState,
         setPiece: setPiece,
         setPieceXY: setPieceXY,
