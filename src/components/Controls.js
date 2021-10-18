@@ -28,7 +28,7 @@ export default function Controls(props) {
       e.target.attributes.id.textContent === 'down-button' ||
       e.keyCode === 40
     ) {
-      movePiece({ x: 0, y: +1 }, pieceName);
+      movePiece({ x: 0, y: +1 }, pieceName, true);
     }
   }
 

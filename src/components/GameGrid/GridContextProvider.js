@@ -60,8 +60,9 @@ const GridContextProvider = ({ children }) => {
       pieces[Math.floor(Math.random() * (pieces.length - 1))];
     movingPieceName = selectedName;
     //gets piece properties
-    const chosenPiece = piece(movingPieceName, 0, 0);
     setPieceName(movingPieceName);
+    const chosenPiece = piece(movingPieceName, 0, 0);
+
     const spawnLocation = chosenPiece.spawn;
     setPieceXY({ x: spawnLocation, y: 0 });
     //sets piece at spawn location
@@ -114,7 +115,7 @@ const GridContextProvider = ({ children }) => {
   };
 
   //moves piece down, left, or right
-  const movePiece = (diff, nameOfPiece) => {
+  const movePiece = (diff, nameOfPiece, isDownButton) => {
     return setPieceXY((prevState) => {
       //gets new coords of piece placement
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
@@ -145,7 +146,6 @@ const GridContextProvider = ({ children }) => {
         });
         return flag;
       };
-
       //place 0's at old coords - if there's a name from controls component, use that
       removePiece(prevState, nameOfPiece ? nameOfPiece : movingPieceName);
 
@@ -166,6 +166,8 @@ const GridContextProvider = ({ children }) => {
         ) {
           if(newCoords.y === 1){
             endGame();
+          } else if(isDownButton){
+            return prevState;
           } else {
             const rowsCleared = tetrisClear();
             setSCORE((prevState) => prevState + 100 * rowsCleared);
@@ -179,7 +181,6 @@ const GridContextProvider = ({ children }) => {
   };
 
   const endGame = () => {
-    console.log('made it to endGame')
     setIsEnd(isEnd => !isEnd);
     shouldEnd = !shouldEnd;
     const newGrid = [...gridState];
@@ -194,6 +195,7 @@ const GridContextProvider = ({ children }) => {
         SCORE: SCORE,
         pieceName: pieceName,
         isEnd: isEnd,
+        movingPieceName: movingPieceName,
         setGridState: setGridState,
         setPiece: setPiece,
         setPieceXY: setPieceXY,
