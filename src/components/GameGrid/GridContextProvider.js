@@ -55,7 +55,27 @@ const GridContextProvider = ({ children }) => {
   //starts piece movement on the board as well as after a piece stops on the board
   const startPieceMove = (shouldStop) => {
     //randomizes piece name selection
-    const pieces = ['square', 'long', 't-shape', 'l', 'j', 's', 'z'];
+    const pieces = [
+      'square',
+      'long1',
+      'long2',
+      't1',
+      't2',
+      't3',
+      't4',
+      'l1',
+      'l2',
+      'l3',
+      'l4',
+      'j1',
+      'j2',
+      'j3',
+      'j4',
+      's1',
+      's2',
+      'z1',
+      'z2',
+    ];
     const selectedName =
       pieces[Math.floor(Math.random() * (pieces.length - 1))];
     movingPieceName = selectedName;
@@ -88,7 +108,7 @@ const GridContextProvider = ({ children }) => {
     let count = 0;
     const rows = [];
 
-    //check each y index row for grid squares that don't contain a 0, add to count. 
+    //check each y index row for grid squares that don't contain a 0, add to count.
     //if count is == GRID_WIDTH splice row. unshift spliced rows with 0's
     //returns number of rows cleared
     for (let i = 0; i < GRID_HEIGHT; i++) {
@@ -164,9 +184,9 @@ const GridContextProvider = ({ children }) => {
               piece(nameOfPiece ? nameOfPiece : movingPieceName, newCoords)
                 .border.bottom
         ) {
-          if(newCoords.y === 1){
+          if (newCoords.y === 1) {
             endGame();
-          } else if(isDownButton){
+          } else if (isDownButton) {
             return prevState;
           } else {
             const rowsCleared = tetrisClear();
@@ -181,11 +201,11 @@ const GridContextProvider = ({ children }) => {
   };
 
   const endGame = () => {
-    setIsEnd(isEnd => !isEnd);
+    setIsEnd((isEnd) => !isEnd);
     shouldEnd = !shouldEnd;
     const newGrid = [...gridState];
     setGridState(newGrid);
-  }
+  };
 
   return (
     <GridContext.Provider
