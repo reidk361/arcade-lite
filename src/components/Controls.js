@@ -12,39 +12,46 @@ export default function Controls(props) {
         setStart(true);
         startPieceMove();
       }
-    } if (
+    }
+    if (
       e.target.attributes.id.textContent === "left-button" ||
       e.keyCode === 37
     ) {
       if (start === false) {
-        alert("You need to press the START button before you can move the pieces!")
-      }
-      else if(start === true) {
+        alert(
+          "You need to press the START button before you can move the pieces!"
+        );
+      } else if (start === true) {
         movePiece({ x: -1, y: 0 }, pieceName);
       }
-    } if (
+    }
+    if (
       e.target.attributes.id.textContent === "right-button" ||
       e.keyCode === 39
     ) {
       if (start === false) {
-        alert("You need to press the START button before you can move the pieces!")
-      }
-      else if(start === true) {
+        alert(
+          "You need to press the START button before you can move the pieces!"
+        );
+      } else if (start === true) {
         movePiece({ x: +1, y: 0 }, pieceName);
       }
-    } if (
+    }
+    if (
       e.target.attributes.id.textContent === "rotate-button" ||
       e.keyCode === 32
     ) {
       alert("rotate");
-    } else if (
+    }
+    if (
       e.target.attributes.id.textContent === "down-button" ||
       e.keyCode === 40
     ) {
       if (start === false) {
-        alert("You need to press the START button before you can move the pieces!")
-      }
-      else if(start === true) {
+        alert(
+          "You need to press the START button before you can move the pieces!"
+        );
+      } else if (start === true) {
         movePiece({ x: 0, y: +1 }, pieceName);
       }
     }
