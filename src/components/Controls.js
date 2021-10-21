@@ -19,7 +19,7 @@ export default function Controls(props) {
     ) {
       if (start === false) {
         alert(
-          "You need to press the START button before you can move the pieces!"
+          "You need to press the START button to begin the game and move the pieces!"
         );
       } else if (start === true) {
         movePiece({ x: -1, y: 0 }, pieceName);
@@ -31,7 +31,7 @@ export default function Controls(props) {
     ) {
       if (start === false) {
         alert(
-          "You need to press the START button before you can move the pieces!"
+          "You need to press the START button to begin the game and move the pieces!"
         );
       } else if (start === true) {
         movePiece({ x: +1, y: 0 }, pieceName);
@@ -49,7 +49,7 @@ export default function Controls(props) {
     ) {
       if (start === false) {
         alert(
-          "You need to press the START button before you can move the pieces!"
+          "You need to press the START button to begin the game and move the pieces!"
         );
       } else if (start === true) {
         movePiece({ x: 0, y: +1 }, pieceName);
