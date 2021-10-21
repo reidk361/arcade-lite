@@ -12,7 +12,8 @@ export default function Controls(props) {
         setStart(true);
         startPieceMove();
       }
-    } else if (
+    }
+    if (
       e.target.attributes.id.textContent === "left-button" ||
       e.keyCode === 37
     ) {
@@ -23,7 +24,8 @@ export default function Controls(props) {
       } else if (start === true) {
         movePiece({ x: -1, y: 0 }, pieceName);
       }
-    } else if (
+    }
+    if (
       e.target.attributes.id.textContent === "right-button" ||
       e.keyCode === 39
     ) {
@@ -34,12 +36,14 @@ export default function Controls(props) {
       } else if (start === true) {
         movePiece({ x: +1, y: 0 }, pieceName);
       }
-    } else if (
+    }
+    if (
       e.target.attributes.id.textContent === "rotate-button" ||
       e.keyCode === 32
     ) {
       alert("rotate");
-    } else if (
+    }
+    if (
       e.target.attributes.id.textContent === "down-button" ||
       e.keyCode === 40
     ) {
