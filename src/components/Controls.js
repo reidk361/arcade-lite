@@ -3,29 +3,29 @@ import { useContext, useState } from 'react';
 
 
 export default function Controls(props) {
-  const [start, setStart]= useState(true)
+  const [start, setStart]= useState(false)
   //TODO move this where apropriate and name
   const { startPieceMove, movePiece, pieceName } =
     useContext(GridContext);
 
   function handleControls(e) {
     if (e.target.attributes.id.textContent === 'START' || e.keyCode === 76) {
-      if(start) {
-      setStart(false)
+      if(start === false) {
+      setStart(true)
       startPieceMove();
       }
     } else if (
       e.target.attributes.id.textContent === 'left-button' ||
       e.keyCode === 37
     ) {
-      if(start === false) {
+      if(start === true) {
         movePiece({ x: -1, y: 0 }, pieceName);
       }
     } else if (
       e.target.attributes.id.textContent === 'right-button' ||
       e.keyCode === 39
     ) {
-      if(start === false) {
+      if(start === true) {
         movePiece({ x: +1, y: 0 }, pieceName);
       }
     } else if (
@@ -37,7 +37,7 @@ export default function Controls(props) {
       e.target.attributes.id.textContent === 'down-button' ||
       e.keyCode === 40
     ) {
-      if(start === false) {
+      if(start === true) {
         movePiece({ x: 0, y: +1 }, pieceName);
       }
     }
