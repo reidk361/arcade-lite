@@ -1,21 +1,19 @@
-import { GridContext } from './GameGrid/GridContextProvider';
-import { useContext, useState } from 'react';
-
+import { GridContext } from "./GameGrid/GridContextProvider";
+import { useContext, useState } from "react";
 
 export default function Controls(props) {
-  const [start, setStart]= useState(false)
+  const [start, setStart] = useState(false);
   //TODO move this where apropriate and name
-  const { startPieceMove, movePiece, pieceName } =
-    useContext(GridContext);
+  const { startPieceMove, movePiece, pieceName } = useContext(GridContext);
 
   function handleControls(e) {
-    if (e.target.attributes.id.textContent === 'START' || e.keyCode === 76) {
-      if(start === false) {
-      setStart(true)
-      startPieceMove();
+    if (e.target.attributes.id.textContent === "START" || e.keyCode === 76) {
+      if (start === false) {
+        setStart(true);
+        startPieceMove();
       }
-    } else if (
-      e.target.attributes.id.textContent === 'left-button' ||
+    } if (
+      e.target.attributes.id.textContent === "left-button" ||
       e.keyCode === 37
     ) {
       if (start === false) {
@@ -24,8 +22,8 @@ export default function Controls(props) {
       else if(start === true) {
         movePiece({ x: -1, y: 0 }, pieceName);
       }
-    } else if (
-      e.target.attributes.id.textContent === 'right-button' ||
+    } if (
+      e.target.attributes.id.textContent === "right-button" ||
       e.keyCode === 39
     ) {
       if (start === false) {
@@ -34,13 +32,13 @@ export default function Controls(props) {
       else if(start === true) {
         movePiece({ x: +1, y: 0 }, pieceName);
       }
-    } else if (
-      e.target.attributes.id.textContent === 'rotate-button' ||
+    } if (
+      e.target.attributes.id.textContent === "rotate-button" ||
       e.keyCode === 32
     ) {
-      alert('rotate');
+      alert("rotate");
     } else if (
-      e.target.attributes.id.textContent === 'down-button' ||
+      e.target.attributes.id.textContent === "down-button" ||
       e.keyCode === 40
     ) {
       if (start === false) {
@@ -94,7 +92,7 @@ export default function Controls(props) {
         onClick={handleControls}
         onKeyDown={handleControls}
         id="START"
-        style={{ margin: '10px' }}
+        style={{ margin: "10px" }}
       >
         START
       </button>
