@@ -1,0 +1,21 @@
+.tetrimino1 {
+    background-image: url('../../assets/svgs/squareSVG.svg');
+}
+.tetrimino2 {
+    background-image: url('../../assets/svgs/longSVG.svg');
+}
+.tetrimino3 {
+    background-image: url('../../assets/svgs/tSVG.svg');
+}
+.tetrimino4 {
+    background-image: url('../../assets/svgs/lSVG.svg');
+}
+.tetrimino5 {
+    background-image: url('../../assets/svgs/jSVG.svg');
+}
+.tetrimino6 {
+    background-image: url('../../assets/svgs/sSVG.svg');
+}
+.tetrimino7 {
+    background-image: url('../../assets/svgs/zSVG.svg');
+}

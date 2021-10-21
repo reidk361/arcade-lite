@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { GridContext } from './GridContextProvider';
+import './GameGrid.css';
 
 const GameGrid = () => {
   const { gridState, isEnd } = useContext(GridContext);
@@ -17,27 +18,25 @@ const GameGrid = () => {
             {index.map((number, j) => (
               <div
                 key={j}
+                className={'tetrimino' + number}
                 style={
                   isEnd
                     ? {
+                        height: '25px',
+                        width: '25px',
                         border: '1px solid black',
-                        padding: '10px',
-                        paddingBottom: '5px',
-                        paddingTop: '5px',
                         backgroundColor: `#${Math.floor(
                           Math.random() * 16777215
                         ).toString(16)}`,
                       }
                     : {
-                        border: '1px solid black',
-                        padding: '10px',
-                        paddingBottom: '5px',
-                        paddingTop: '5px',
+                        height: '25px',
+                        width: '25px',
+                        border: '1px solid gray',
+                        backgroundColor: 'darkgray',
                       }
                 }
-              >
-                {number}
-              </div>
+              ></div>
             ))}
           </div>
         ))}
