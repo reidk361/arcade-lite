@@ -5,7 +5,7 @@ import {
   } from '@apollo/client';
   
   export const client = new ApolloClient({
-    uri: 'http://localhost:4000/',
+    uri: 'https://arcade-lite-server.herokuapp.com/',
     cache: new InMemoryCache(),
   });
   
