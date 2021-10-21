@@ -1,6 +1,6 @@
 import Score from '../Score/Score';
 import { useQuery } from '@apollo/client';
-import { GET_SCORES } from '../services/scoresGQL';
+import { GET_SCORES } from '../../services/scoresGQL';
 
 const EndGame = () => {
   const { loading, error, data } = useQuery(GET_SCORES);
@@ -11,7 +11,7 @@ const EndGame = () => {
         {loading && <p>loading...</p>}
         {error && <p>{error}</p>}
         {data &&
-          data.notes.map(({ username, score, _id }) => (
+          data.scores.map(({ username, score, _id }) => (
             <div key={_id}>
               <p>
                 {username}: {score}

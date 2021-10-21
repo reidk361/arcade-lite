@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import { client } from './services/notesGQL';
+import { client } from './services/scoresGQL';
 import GridContextProvider from './components/GameGrid/GridContextProvider';
 import Controls from './components/Controls';
 import GameScreen from './components/GameScreen/GameScreen';

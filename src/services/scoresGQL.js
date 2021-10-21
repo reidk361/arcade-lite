@@ -12,6 +12,7 @@ import {
   export const GET_SCORES = gql`
     query scores {
       scores {
+        _id
         username
         score
       }
