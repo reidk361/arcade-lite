@@ -18,3 +18,12 @@ import {
       }
     }
   `;
+
+  export const INSERT_SCORE = gql`
+    mutation addScore($username: String!, $score: Int!) {
+  addScore(username: $username, score: $score) {
+    username
+    score
+  }
+} 
+  `;

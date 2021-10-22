@@ -35,11 +35,6 @@ export default function Controls(props) {
         movePiece({ x: +1, y: 0 }, pieceName);
       }
     } else if (
-      e.target.attributes.id.textContent === "rotate-button" ||
-      e.keyCode === 32
-    ) {
-      alert("rotate");
-    } else if (
       e.target.attributes.id.textContent === "down-button" ||
       e.keyCode === 40
     ) {
@@ -73,15 +68,6 @@ export default function Controls(props) {
       >
         right
       </button>
-      {/* rotate */}
-      <button
-        id="rotate-button"
-        className="control-button"
-        onClick={handleControls}
-        onKeyDown={handleControls}
-      >
-        rotate
-      </button>
       {/* down */}
       <button
         id="down-button"
@@ -99,6 +85,8 @@ export default function Controls(props) {
       >
         START
       </button>
+      
+
     </div>
   );
 }
