@@ -10,23 +10,25 @@ const ScoreInput = (props) => {
 
   return (
     <div>
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          await mutateFunction({
-            variables: { username: props.input, score: SCORE },
-          });
-          props.setInput('');
-          props.setSubmitted((prev) => !prev);
-        }}
-      >
-        <input
-          value={props.input}
-          onChange={(e) => props.setInput(e.target.value)}
-        />
-        <button type="submit">Input Initials</button>
-      </form>
-      {data && <Scores submitted={props.submitted}/>}
+      {!props.submitted && (
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            await mutateFunction({
+              variables: { username: props.input, score: SCORE },
+            });
+            props.setInput('');
+            props.setSubmitted((prev) => !prev);
+          }}
+        >
+          <input
+            value={props.input}
+            onChange={(e) => props.setInput(e.target.value)}
+          />
+          <button type="submit">Input Initials</button>
+        </form>
+      )}
+      {data && <Scores submitted={props.submitted} />}
       {loading && 'loading...'}
       {error && error.message}
     </div>
