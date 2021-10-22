@@ -52,7 +52,7 @@ export default function Controls(props) {
           "You need to press the START button to begin the game and move the pieces!"
         );
       } else if (start === true) {
-        movePiece({ x: 0, y: +1 }, pieceName);
+        movePiece({ x: 0, y: +1 }, pieceName, true);
       }
     }
   }

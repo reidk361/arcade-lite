@@ -2,9 +2,10 @@ import { useMutation } from '@apollo/client';
 import { INSERT_SCORE } from '../../services/scoresGQL';
 import { useContext } from 'react';
 import { GridContext } from '../GameGrid/GridContextProvider';
+import Scores from './Scores';
 
 const ScoreInput = (props) => {
-  const [mutateFunction, { data }] = useMutation(INSERT_SCORE);
+  const [mutateFunction, { data, error, loading }] = useMutation(INSERT_SCORE);
   const { SCORE } = useContext(GridContext);
 
   return (
@@ -15,8 +16,6 @@ const ScoreInput = (props) => {
           await mutateFunction({
             variables: { username: props.input, score: SCORE },
           });
-          console.log('submitted score: ', data.score);
-          console.log('submitted username: ', data.username);
           props.setInput('');
           props.setSubmitted((prev) => !prev);
         }}
@@ -25,8 +24,11 @@ const ScoreInput = (props) => {
           value={props.input}
           onChange={(e) => props.setInput(e.target.value)}
         />
-        <div type="submit">Add Todo</div>
+        <button type="submit">Input Initials</button>
       </form>
+      {data && <Scores submitted={props.submitted}/>}
+      {loading && 'loading...'}
+      {error && error.message}
     </div>
   );
 };
