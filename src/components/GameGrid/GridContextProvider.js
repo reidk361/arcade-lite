@@ -77,7 +77,7 @@ const GridContextProvider = ({ children }) => {
       'z2',
     ];
     const selectedName =
-      pieces[Math.floor(Math.random() * (pieces.length - 1))];
+      pieces[Math.floor(Math.random() * (pieces.length))];
     movingPieceName = selectedName;
     //gets piece properties
     setPieceName(movingPieceName);
