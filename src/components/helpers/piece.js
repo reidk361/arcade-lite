@@ -16,7 +16,7 @@ const piece = (piece, x, y) => {
             number: 2
         }, 
         'long2': {
-            coords: [[x, y], [x-1, y], [x+1, y], [x+2, y]],
+            coords: [[x, y], [x+1, y], [x+2, y], [x+3, y]],
             name: 'long2',
             spawn: Math.floor(Math.random() * 9),
             border: {right: 3, bottom: 1},
