@@ -10,16 +10,16 @@ const piece = (piece, x, y) => {
         },
         'long1': {
             coords: [[x, y], [x, y+1], [x, y+2], [x, y+3]],
-            name: 'long',
+            name: 'long1',
             spawn: Math.floor(Math.random() * 9),
             border: {right: 1, bottom: 3},
             number: 2
         }, 
         'long2': {
-            coords: [[x, y], [x-1, y], [x+1, y], [x+2, y]],
+            coords: [[x, y], [x+1, y], [x+2, y], [x+3, y]],
             name: 'long2',
             spawn: Math.floor(Math.random() * 9),
-            border: {right: 3, bottom: 1},
+            border: {right: 4, bottom: 1},
             number: 2
         },
         "t1": {
@@ -38,16 +38,16 @@ const piece = (piece, x, y) => {
         },
         "t3": {
             coords: [[x, y], [x+1, y], [x+2, y], [x+1, y+1]],
-            name: 'tB',
+            name: 't3',
             spawn: Math.floor(Math.random() * 9),
             border: {right: 3, bottom: 2},
             number: 3
         },
         "t4": {
-            coords: [[x, y], [x+1, y], [x+2, y], [x+1, y+1]],
+            coords: [[x+1, y], [x+1, y+1], [x+1, y+2], [x, y+1]],
             name: 't4',
             spawn: Math.floor(Math.random() * 9),
-            border: {right: 3, bottom: 2},
+            border: {right: 2, bottom: 3},
             number: 3
         },
         "l1": {
@@ -100,7 +100,7 @@ const piece = (piece, x, y) => {
             number: 5
         },
         "j4": {
-            coords: [[x, y], [x+1, y+1], [x, y+1], [x, y+2]],
+            coords: [[x, y], [x+1, y], [x, y+1], [x, y+2]],
             name: 'j4',
             spawn: Math.floor(Math.random() * 10),
             border: {right: 2, bottom: 3},
@@ -121,17 +121,17 @@ const piece = (piece, x, y) => {
             number: 6
         },
         "s1": {
-            coords: [[x, y], [x , y+1], [x+1, y+1], [x+1, y+2]],
+            coords: [[x, y+1], [x+1 , y+1], [x+1, y], [x+2, y]],
             name: 's1',
             spawn: Math.floor(Math.random() * 10),
-            border: {right: 2, bottom: 3},
+            border: {right: 3, bottom: 2},
             number: 7
         },
         "s2": {
-            coords: [[x, y], [x+1 , y], [x+1, y+1], [x+2, y+1]],
+            coords: [[x, y], [x , y+1], [x+1, y+1], [x+1, y+2]],
             name: 's2',
             spawn: Math.floor(Math.random() * 9),
-            border: {right: 3, bottom: 2},
+            border: {right: 2, bottom: 3},
             number: 7
         },
     };
