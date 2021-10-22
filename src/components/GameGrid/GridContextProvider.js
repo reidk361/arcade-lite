@@ -139,6 +139,7 @@ const GridContextProvider = ({ children }) => {
     return setPieceXY((prevState) => {
       //gets new coords of piece placement
       const newCoords = { x: prevState.x + diff.x, y: prevState.y + diff.y };
+      console.log('piecename is: ', nameOfPiece ? nameOfPiece : movingPieceName)
       //checks if new piece placement is valid
       const checkPieceMove = () => {
         //check if piece placement is outside of grid's x coord borders
