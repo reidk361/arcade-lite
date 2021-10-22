@@ -52,7 +52,7 @@ export default function Controls(props) {
           "You need to press the START button to begin the game and move the pieces!"
         );
       } else if (start === true) {
-        movePiece({ x: 0, y: +1 }, pieceName);
+        movePiece({ x: 0, y: +1 }, pieceName, true);
       }
     }
   }
@@ -77,15 +77,6 @@ export default function Controls(props) {
       >
         right
       </button>
-      {/* rotate */}
-      <button
-        id="rotate-button"
-        className="control-button"
-        onClick={handleControls}
-        onKeyDown={handleControls}
-      >
-        rotate
-      </button>
       {/* down */}
       <button
         id="down-button"
@@ -103,6 +94,8 @@ export default function Controls(props) {
       >
         START
       </button>
+      
+
     </div>
   );
 }
