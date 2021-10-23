@@ -22,7 +22,7 @@ const ScoreInput = (props) => {
           }}
         >
           <input
-            value={props.input}
+            value={props.input.slice(0, 3)}
             onChange={(e) => props.setInput(e.target.value)}
           />
           <button type="submit">Input Initials</button>
