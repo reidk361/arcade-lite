@@ -1,4 +1,56 @@
 body{
     font-family: 'Play', sans-serif;
-    background-image: url("./assets/TetrisBackdropModern.png");
+    background-color:blue;
+    background-image: url("./assets/TetrisBackdropModern2.png");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+    color: azure;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#grid-container{
+    opacity: .8;
+    position: relative;
+}
+
+button{
+    font-family: 'Play', sans-serif;
+}
+
+.controls{
+    position: absolute;
+    margin-top: -100px;
+}
+
+button{
+    font-size: x-large;
+    background-color: lightblue;
+    border-radius: 5px;
+}
+
+#score{
+    margin-top: -5px;
+}
+
+#left-button{
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 10px;
+}
+
+#right-button{
+    position: absolute;
+    margin-top: -29px;
+    margin-left: 100px;
+}
+
+#down-button{
+    position: absolute;
+    margin-left: 50px;
+}
+
+#START{
+    position: absolute;
+    margin-top: -200px;
+    margin-left: 50px;
 }

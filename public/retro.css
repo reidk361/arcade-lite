@@ -1,4 +1,48 @@
 body{
     font-family: 'Press Start 2P', cursive;
-    background-image: url("./assets/TetrisBackdrop.png");
+    background-image: url("./assets/TetrisBackdrop2.png");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+    color: azure;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#grid-container{
+    opacity: .8;
+    position: relative;
+}
+
+button{
+    font-family: 'Press Start 2P', cursive;
+}
+
+button{
+    font-size: large;
+}
+
+.controls{
+    position: absolute;
+    margin-top: -80px;
+}
+
+#left-button{
+    position: absolute;
+    margin-top: -8px;
+}
+
+#right-button{
+    position: absolute;
+    margin-top: -24px;
+    margin-left: 100px;
+}
+
+#down-button{
+    position: absolute;
+    margin-left: 50px;
+}
+
+#START{
+    position: absolute;
+    margin-top: -200px;
+    margin-left: 50px;
 }
