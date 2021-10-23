@@ -66,8 +66,9 @@ export default function Controls(props) {
         onClick={handleControls}
         onKeyDown={handleControls}
       >
-        left
+        Left
       </button>
+      <br/>
       {/* right */}
       <button
         id="right-button"
@@ -75,8 +76,9 @@ export default function Controls(props) {
         onClick={handleControls}
         onKeyDown={handleControls}
       >
-        right
+        Right
       </button>
+      <br/>
       {/* down */}
       <button
         id="down-button"
@@ -84,13 +86,13 @@ export default function Controls(props) {
         onClick={handleControls}
         onKeyDown={handleControls}
       >
-        down
+        Down
       </button>
+      <br/>
       <button
         onClick={handleControls}
         onKeyDown={handleControls}
         id="START"
-        style={{ margin: "10px" }}
       >
         START
       </button>
