@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import StartOver from '../StartOver/StartOver';
 import ScoreInput from './ScoreInput';
 
 const EndGame = () => {
@@ -15,7 +16,7 @@ const EndGame = () => {
           submitted={submitted}
         />
       )}
-      
+      <StartOver />
     </div>
   );
 };

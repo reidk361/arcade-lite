@@ -23,7 +23,6 @@ const ScoreInput = (props) => {
               variables: { username: props.input, score: SCORE },
             });
             props.setInput('');
-
           }}
         >
           <input

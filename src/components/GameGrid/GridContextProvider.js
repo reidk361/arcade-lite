@@ -14,6 +14,7 @@ const GridContextProvider = ({ children }) => {
   const [SCORE, setSCORE] = useState(0);
   const [pieceName, setPieceName] = useState('');
   const [isEnd, setIsEnd] = useState(false);
+  const [start, setStart] = useState(false);
   let movingPieceName = '';
   let shouldEnd = false;
   let scoreCheck = 0;
@@ -205,10 +206,11 @@ const GridContextProvider = ({ children }) => {
     });
   };
 
-  const endGame = () => {
+  const endGame = (startOver) => {
     setIsEnd((isEnd) => !isEnd);
     shouldEnd = !shouldEnd;
-    const newGrid = [...gridState];
+    setStart(prev => startOver ? !prev : prev);
+    const newGrid = startOver ? gridState.map(xs => xs.map(ys => ys = 0)) : [...gridState];
     setGridState(newGrid);
   };
 
@@ -221,6 +223,7 @@ const GridContextProvider = ({ children }) => {
         pieceName: pieceName,
         isEnd: isEnd,
         movingPieceName: movingPieceName,
+        start: start,
         setGridState: setGridState,
         setPiece: setPiece,
         setPieceXY: setPieceXY,
@@ -230,6 +233,8 @@ const GridContextProvider = ({ children }) => {
         startPieceMove: startPieceMove,
         movePiece: movePiece,
         tetrisClear: tetrisClear,
+        endGame: endGame,
+        setStart: setStart
       }}
     >
       {children}
