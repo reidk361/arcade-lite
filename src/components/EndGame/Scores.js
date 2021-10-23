@@ -23,6 +23,9 @@ const Scores = (props) => {
             YOUR SCORE:
             <Score />
           </div>
+          <div>
+              
+          </div>
         </h1>
       )}
     </div>

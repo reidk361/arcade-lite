@@ -16,6 +16,7 @@ const GridContextProvider = ({ children }) => {
   const [isEnd, setIsEnd] = useState(false);
   let movingPieceName = '';
   let shouldEnd = false;
+  let scoreCheck = 0;
 
   //sets a piece at the new coords. if there is a name included (from the controls component) then it uses that name for the piece
   //places 1's at the piece's coords
@@ -97,7 +98,7 @@ const GridContextProvider = ({ children }) => {
       setTimeout(() => {
         movePiece({ x: 0, y: +1 });
         helper(shouldStop);
-      }, 500);
+      }, scoreCheck > 499 ? 350 : scoreCheck > 299 ? 500 : scoreCheck > 99 ? 750 : 1000);
     };
     helper(shouldStop);
   };
@@ -191,7 +192,10 @@ const GridContextProvider = ({ children }) => {
             return prevState;
           } else {
             const rowsCleared = tetrisClear();
-            setSCORE((prevState) => prevState + 100 * rowsCleared);
+            setSCORE((prevState) => {
+              scoreCheck = prevState + 100 * rowsCleared;
+              return (prevState + 100 * rowsCleared)
+            });
             startPieceMove(true);
           }
         }
