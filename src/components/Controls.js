@@ -1,8 +1,8 @@
 import { GridContext } from "./GameGrid/GridContextProvider";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 export default function Controls(props) {
-  const [start, setStart] = useState(false);
+  const { start, setStart } = useContext(GridContext);
   //TODO move this where apropriate and name
   const { startPieceMove, movePiece, pieceName } = useContext(GridContext);
 
