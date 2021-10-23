@@ -4,8 +4,8 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 
 const ThemeBtn = () => {
   const { switcher, themes, currentTheme, status } = useThemeSwitcher();
+    // eslint-disable-next-line no-unused-vars
     const [isModernMode, setIsModernMode] = React.useState(false);
-  console.log(isModernMode);
 
   if (status === "loading") {
     return <div>Loading styles...</div>;
