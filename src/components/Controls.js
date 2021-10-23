@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 export default function Controls(props) {
   const { start, setStart } = useContext(GridContext);
-  //TODO move this where apropriate and name
+  //TODO move this where appropriate and name
   const { startPieceMove, movePiece, pieceName } = useContext(GridContext);
 
   function handleControls(e) {
