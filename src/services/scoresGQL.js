@@ -1,6 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 require("dotenv").config();
-console.log(process.env.REACT_APP_DBURI);
 
 export const client = new ApolloClient({
   uri: process.env.REACT_APP_DBURI,
