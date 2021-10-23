@@ -7,6 +7,9 @@ import Score from './components/Score/Score';
 
 function App() {
   return (
+    <>
+    <div>
+      <button type="button" id="style">Modern</button>
     <ApolloProvider client={client}>
     <GridContextProvider>
       <GameScreen />
@@ -14,6 +17,8 @@ function App() {
       <Score />
     </GridContextProvider>
     </ApolloProvider>
+    </div>
+    </>
   );
 }
 
